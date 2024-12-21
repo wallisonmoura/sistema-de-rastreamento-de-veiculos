@@ -1,0 +1,29 @@
+# Ignore os arquivos e pastas de log e configuração comuns
+*.log
+*.tmp
+*.bak
+
+# Ignore a pasta de dependências do Node (se houver) no repositório principal
+node_modules/
+
+# Ignore arquivos de build de frontend (por exemplo, Next.js ou NestJS)
+.next/
+out/
+
+# Ignorar as pastas de builds específicas do Go, se existirem
+bin/
+
+# Ignorar os arquivos .DS_Store do macOS
+.DS_Store
+
+# Ignorar IDEs (por exemplo, VS Code, IntelliJ)
+.vscode/
+.idea/
+
+# Ignore a pasta de dependências do Go, caso haja
+/go/pkg/
+
+# E caso você queira ignorar arquivos de cada subprojeto:
+golang-simulator/.idea/
+nestjs-api/.env
+next-frontend/.env
