@@ -61,11 +61,11 @@ func (eh *EventHub) HandlerEvent(msg []byte) error {
 		if err != nil {
 			return fmt.Errorf("error unmarshalling event: %w", err)
 		}
+		return eh.handlerDeliveryStarted(event)
 
 	default:
 		return fmt.Errorf("unknown event")
 	}
-	return nil
 }
 
 func (eh *EventHub) handlerRouteCreated(event RouteCreatedEvent) error {
