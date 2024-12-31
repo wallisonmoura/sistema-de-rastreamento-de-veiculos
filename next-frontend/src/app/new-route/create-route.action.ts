@@ -1,14 +1,20 @@
-'use server'
+"use server";
 
 import { revalidateTag } from "next/cache";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function createRouteAction(state: any, formData: FormData) {
-
   const { sourceId, destinationId } = Object.fromEntries(formData);
-  console.log(sourceId, destinationId);
 
-  const directionsResponse = await fetch(`http://localhost:3000/directions?originId=${sourceId}&destinationId=${destinationId}`);
+  const directionsResponse = await fetch(
+    `${process.env.NEST_API_URL}/directions?originId=${sourceId}&destinationId=${destinationId}`,
+    {
+      // cache: "force-cache", //default
+      // next: {
+      //   revalidate: 1 * 60 * 60 * 24, // 1 dia
+      // }
+    }
+  );
 
   if (!directionsResponse.ok) {
     console.error(await directionsResponse.text());
@@ -20,7 +26,7 @@ export async function createRouteAction(state: any, formData: FormData) {
   const startAddress = directionsData.routes[0].legs[0].start_address;
   const endAddress = directionsData.routes[0].legs[0].end_address;
 
-  const response = await fetch('http://localhost:3000/routes', {
+  const response = await fetch(`${process.env.NEST_API_URL}/routes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

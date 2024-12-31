@@ -3,8 +3,8 @@ import { NewRouteForm } from "./NewRouteForm";
 
 export async function searchDirections(source: string, destination: string) {
   const [sourceResponse, destinationResponse] = await Promise.all([
-    fetch(`http://localhost:3000/places?text=${source}`),
-    fetch(`http://localhost:3000/places?text=${destination}`)
+    fetch(`${process.env.NEST_API_URL}/places?text=${source}`),
+    fetch(`${process.env.NEST_API_URL}/places?text=${destination}`)
   ])
 
   if (!sourceResponse.ok) {
@@ -25,7 +25,7 @@ export async function searchDirections(source: string, destination: string) {
   const placeSourceId = sourceData.candidates[0].place_id;
   const placeDestinationId = destinationData.candidates[0].place_id;
 
-  const directionsResponse = await fetch(`http://localhost:3000/directions?originId=${placeSourceId}&destinationId=${placeDestinationId}`)
+  const directionsResponse = await fetch(`${process.env.NEST_API_URL}/directions?originId=${placeSourceId}&destinationId=${placeDestinationId}`)
   
   if (!directionsResponse.ok) {
     console.error(await directionsResponse.text());

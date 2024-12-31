@@ -5,7 +5,7 @@ export async function GET(
 ) {
   const { routeId } = await params;
   console.log('pegou ',routeId);
-  const response = await fetch(`http://localhost:3000/routes/${routeId}`, {
+  const response = await fetch(`${process.env.NEST_API_URL}/routes/${routeId}`, {
     cache: "force-cache",
     next: {
       tags: [`routes-${routeId}`, "routes"],
